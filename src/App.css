@@ -11,8 +11,9 @@ h2 {
   margin-top: 30px;
 }
 
-input[type='number'] {
+input[type='number'], select {
   text-align: right;
+  text-align-last: right;
 }
 
 .App-header {

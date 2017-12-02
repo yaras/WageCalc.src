@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 import Summary from './summary.js'
 
@@ -11,16 +11,18 @@ export default class Calculator extends Component {
         this.state = {
             isCalculated: false,
             brutto: null,
-            isValueValid: true
+            isValueValid: false,
+            kosztyMiejscowe: 0
         };
     }
 
     componentDidMount() {
-        this.setState({
-            isCalculated: true,
-            brutto: 3000,
-            isValueValid: true
-        });
+        // this.setState({
+        //     isCalculated: true,
+        //     brutto: 13000,
+        //     isValueValid: true,
+        //     kosztyMiejscowe: 139.06
+        // });
     }
 
     calc() {
@@ -30,7 +32,7 @@ export default class Calculator extends Component {
     }
 
     setBrutto(e) {
-        var val = e.target.value;
+        var val = Number(e.target.value);
 
         if (val > 0) {
             this.setState({ brutto: val, isValueValid: true, isCalculated: false }  );
@@ -39,33 +41,42 @@ export default class Calculator extends Component {
         }
     }
 
+    setKoszty(e) {
+        var val = Number(e.target.value);
+        this.setState({kosztyMiejscowe: val, isCalculated: false});
+    }
+
     render() {
         return <div className="container" style={{ 'textAlign': 'center' }}>
-            <form>
-                <div className="row">                    
-                    <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div className="input-group-addon">Pensja brutto</div>
+            <form onSubmit={e => { e.preventDefault(); this.calc() } }>
+            
+                <div className="input-group mb-2 mr-sm-2 mb-sm-0">                
+                    <div className="input-group-addon">Pensja brutto</div>
+                            <input 
+                                type="number" 
+                                className={this.state.isValueValid ? "form-control" : "form-control is-invalid " }
+                                id="exampleFormControlInput1" 
+                                onChange={e => this.setBrutto(e)} />
+                            <div className="input-group-addon">zł</div>
+                </div>
 
-                        <input 
-                            type="number" 
-                            className={this.state.isValueValid ? "form-control" : "form-control is-invalid " }
-                            id="inlineFormInputGroupUsername" placeholder="pensja" 
-                            onChange={e => this.setBrutto(e)} />
+                <div className="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div className="input-group-addon">Koszty miejscowe</div>
 
-                        <div className="input-group-addon">zł</div>
-                    </div>
+                    <select className="form-control" id="exampleFormControlSelect1" onChange={e => this.setKoszty(e)}>
+                        <option value="111.25">111.25</option>
+                        <option value="139.06">139.06</option>
+                    </select>
 
-                    {!this.state.isValueValid && <div className="invalid-feedback">
-                        Wprowadzona wartość jest niepoprawna
-                    </div>}
+                    <div className="input-group-addon">zł</div>
                 </div>
             </form>
 
-            <div className="row align-items-center">
-                    <Button disabled={this.state.brutto == null} onClick={e => this.calc()} className="btn btn-success btn-lg" >Wylicz</Button>
+            <div className="row align-items-center" style={{ marginTop: '10px' }}>
+                    <Button disabled={!this.state.isValueValid} onClick={e => this.calc()} className="btn btn-success btn-lg" >Wylicz</Button>
             </div>
 
-            { this.state.isCalculated && <Summary brutto={this.state.brutto} /> }
+            { this.state.isCalculated && <Summary brutto={this.state.brutto} kosztyMiejscowe={this.state.kosztyMiejscowe} /> }
         </div>;
     }
 }
