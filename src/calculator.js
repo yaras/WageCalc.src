@@ -17,14 +17,6 @@ export default class Calculator extends Component {
         };
     }
 
-    componentDidMount() {
-        // this.setState({
-        //     isCalculated: true,
-        //     brutto: 13000,
-        //     isValueValid: true,
-        //     kosztyMiejscowe: 139.06
-        // });
-    }
 
     calc() {
         this.setState({
@@ -49,13 +41,11 @@ export default class Calculator extends Component {
 
     setWypadkowe(e) {
         var val = Number(e.target.value);
-        console.log(val);
+
         if (val > 0) {
             this.setState({stawkaWypadkowe: val, isCalculated: false, isValuValid: true });
-            console.log('ok');
         } else {
             this.setState({ isValueValid: false })
-            console.log('err');
         }
     }
 
