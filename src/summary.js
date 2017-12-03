@@ -77,7 +77,6 @@ export default class Summary extends Component {
             + pracodawcaFP + pracodawcaFGSP;
 
         var podstawaOpodatkowania = this.round(dochod - pracownikZusRazem);
-        var podstawa = Math.round(podstawaOpodatkowania);
 
         var podstawaSkladek = brutto - pracownikZusRazem;
 
