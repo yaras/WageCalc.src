@@ -12,7 +12,7 @@ export default class Calculator extends Component {
             isCalculated: false,
             brutto: null,
             isValueValid: false,
-            kosztyMiejscowe: 0
+            kosztyMiejscowe: 111.25
         };
     }
 
