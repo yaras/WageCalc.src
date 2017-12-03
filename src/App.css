@@ -11,7 +11,7 @@ h2 {
   margin-top: 30px;
 }
 
-input[type='number'], select {
+input, select {
   text-align: right;
   text-align-last: right;
 }

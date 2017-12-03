@@ -11,12 +11,12 @@ export default class Calculator extends Component {
         this.state = {
             isCalculated: false,
             brutto: null,
-            isValueValid: false,
+            isBruttoValid: false,
             kosztyMiejscowe: 111.25,
-            stawkaWypadkowe: 6.7
+            stawkaWypadkowe: 6.7,
+            isStawkaWypadkoweValid: true
         };
     }
-
 
     calc() {
         this.setState({
@@ -28,9 +28,9 @@ export default class Calculator extends Component {
         var val = Number(e.target.value);
 
         if (val > 0) {
-            this.setState({ brutto: val, isValueValid: true, isCalculated: false }  );
+            this.setState({ brutto: val, isBruttoValid: true, isCalculated: false }  );
         } else {
-            this.setState({ isValueValid: false })
+            this.setState({ isBruttoValid: false })
         }
     }
 
@@ -43,9 +43,9 @@ export default class Calculator extends Component {
         var val = Number(e.target.value);
 
         if (val > 0) {
-            this.setState({stawkaWypadkowe: val, isCalculated: false, isValuValid: true });
+            this.setState({stawkaWypadkowe: val, isCalculated: false, isStawkaWypadkoweValid: true });
         } else {
-            this.setState({ isValueValid: false })
+            this.setState({ isStawkaWypadkoweValid: false })
         }
     }
 
@@ -85,7 +85,8 @@ export default class Calculator extends Component {
             </form>
 
             <div className="row align-items-center" style={{ marginTop: '10px' }}>
-                <Button disabled={!this.state.isValueValid} onClick={e => this.calc()} className="btn btn-success btn-lg" >Wylicz</Button>
+                <Button disabled={!this.state.isBruttoValid || !this.state.isStawkaWypadkoweValid} 
+                    onClick={e => this.calc()} className="btn btn-success btn-lg" >Wylicz</Button>
             </div>
 
             { this.state.isCalculated && <Summary brutto={this.state.brutto} kosztyMiejscowe={this.state.kosztyMiejscowe} stawkaWypadkowe={this.state.stawkaWypadkowe} /> }

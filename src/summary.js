@@ -60,6 +60,13 @@ export default class Summary extends Component {
         return Math.round(n * 100) / 100;
     }
 
+    formatValue(v) {
+        return v.toLocaleString('pl-pl', {
+            style: 'currency', 
+            currency:"PLN"
+        });
+    }
+
     calc(brutto, kosztyMiejscowe, stawkaWypadkowe) {
         var dochod = brutto - kosztyMiejscowe;
         
@@ -93,31 +100,31 @@ export default class Summary extends Component {
         var pracodawca = brutto + pracodawcaZusRazem;
 
         var s = {
-            brutto: brutto.toFixed(2),
-            kosztyMiejscowe: kosztyMiejscowe.toFixed(2),
-            netto: netto.toFixed(2),
-            dochod: dochod.toFixed(2),
+            brutto: this.formatValue(brutto),
+            kosztyMiejscowe: this.formatValue(kosztyMiejscowe),
+            netto: this.formatValue(netto),
+            dochod: this.formatValue(dochod),
             
-            pracownikEmerytalna: pracownikEmerytalna.toFixed(2),
-            pracownikRentowa: pracownikRentowa.toFixed(2),
-            pracownikChorobowa: pracownikChorobowa.toFixed(2),
-            pracownikZusRazem: pracownikZusRazem.toFixed(2),
+            pracownikEmerytalna: this.formatValue(pracownikEmerytalna),
+            pracownikRentowa: this.formatValue(pracownikRentowa),
+            pracownikChorobowa: this.formatValue(pracownikChorobowa),
+            pracownikZusRazem: this.formatValue(pracownikZusRazem),
 
-            pracodawcaEmerytalna: pracodawcaEmerytalna.toFixed(2),
-            pracodawcaRentowa: pracodawcaRentowa.toFixed(2),
-            pracodawcaWypadkowa: pracodawcaWypadkowa.toFixed(2),
-            pracodawcaFP: pracodawcaFP.toFixed(2),
-            pracodawcaFGSP: pracodawcaFGSP.toFixed(2),
-            pracodawcaZusRazem: pracodawcaZusRazem.toFixed(2),
+            pracodawcaEmerytalna: this.formatValue(pracodawcaEmerytalna),
+            pracodawcaRentowa: this.formatValue(pracodawcaRentowa),
+            pracodawcaWypadkowa: this.formatValue(pracodawcaWypadkowa),
+            pracodawcaFP: this.formatValue(pracodawcaFP),
+            pracodawcaFGSP: this.formatValue(pracodawcaFGSP),
+            pracodawcaZusRazem: this.formatValue(pracodawcaZusRazem),
 
-            podstawaOpodatkowania: podstawaOpodatkowania.toFixed(2),
+            podstawaOpodatkowania: this.formatValue(podstawaOpodatkowania),
 
-            sklZdrowotnaPobierana: sklZdrowotnaPobierana.toFixed(2),
-            sklZdrowotnaOdliczana: sklZdrowotnaOdliczana.toFixed(2),
+            sklZdrowotnaPobierana: this.formatValue(sklZdrowotnaPobierana),
+            sklZdrowotnaOdliczana: this.formatValue(sklZdrowotnaOdliczana),
 
-            podatek: podatek.toFixed(2),
+            podatek: this.formatValue(podatek),
 
-            pracodawca: pracodawca.toFixed(2)
+            pracodawca: this.formatValue(pracodawca)
         }
 
         this.setState(s);
@@ -145,60 +152,50 @@ export default class Summary extends Component {
                         <div className="input-group-addon">Pensja brutto</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.brutto} />
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Koszty miejscowe</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.kosztyMiejscowe} />
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Dochód</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.dochod} />
-
-                        <div className="input-group-addon">zł</div>
                     </div>              
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Pensja netto</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.netto}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Koszt pracodawca</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracodawca}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <h4>ZUS (pracownik)</h4>
@@ -207,48 +204,40 @@ export default class Summary extends Component {
                         <div className="input-group-addon">Składka emerytalna</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracownikEmerytalna}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Składka rentowa</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracownikRentowa}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Składka chorobowa</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracownikChorobowa}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Składki razem</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracownikZusRazem}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <h4>ZUS (pracodawca)</h4>
@@ -257,72 +246,60 @@ export default class Summary extends Component {
                         <div className="input-group-addon">Składka emerytalna</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracodawcaEmerytalna}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Składka rentowa</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracodawcaRentowa}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Składka wypadkowa</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracodawcaWypadkowa}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Składka FP</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracodawcaFP}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Składka FGŚP</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracodawcaFGSP}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Składki razem</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.pracodawcaZusRazem}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <h4>Składki razem</h4>
@@ -331,48 +308,40 @@ export default class Summary extends Component {
                         <div className="input-group-addon">Podstawa</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.podstawaOpodatkowania}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Zdrowotna pobierana</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.sklZdrowotnaPobierana}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Zdrowotna odliczana</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.sklZdrowotnaOdliczana}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
 
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div className="input-group-addon">Podatek</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.podatek}/>
-
-                        <div className="input-group-addon">zł</div>
                     </div>
                 </form>
         </div>;
