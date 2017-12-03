@@ -9,6 +9,7 @@ export default class Summary extends Component {
             netto: 0,
             kosztyMiejscowe: 0,
             dochod: 0,
+            stawkaWypadkowe: 0,
             
             pracownikEmerytalna: 0,
             pracownikRentowa: 0,
@@ -41,7 +42,6 @@ export default class Summary extends Component {
             
             "emerytalna_pracodawca": 0.0976,
             "rentowa_pracodawca": 0.065,
-            "wypadkowa_pracodawca": 0.0067,
             "fp_pracodawca": 0.0245,
             "fgsp_pracodawca": 0.0010,
             
@@ -60,7 +60,7 @@ export default class Summary extends Component {
         return Math.round(n * 100) / 100;
     }
 
-    calc(brutto, kosztyMiejscowe) {        
+    calc(brutto, kosztyMiejscowe, stawkaWypadkowe) {
         var dochod = brutto - kosztyMiejscowe;
         
         var pracownikEmerytalna = brutto * this.const.emerytalna_pracownik;
@@ -70,7 +70,7 @@ export default class Summary extends Component {
 
         var pracodawcaEmerytalna = brutto * this.const.emerytalna_pracodawca;
         var pracodawcaRentowa = brutto * this.const.rentowa_pracodawca;
-        var pracodawcaWypadkowa = brutto * this.const.wypadkowa_pracodawca;
+        var pracodawcaWypadkowa = brutto * stawkaWypadkowe / 100.0;
         var pracodawcaFP = brutto * this.const.fp_pracodawca;
         var pracodawcaFGSP = brutto * this.const.fgsp_pracodawca;
         var pracodawcaZusRazem = pracodawcaEmerytalna + pracodawcaRentowa + pracodawcaWypadkowa 
@@ -126,14 +126,15 @@ export default class Summary extends Component {
 
     componentDidMount() {
         if (this.props.brutto !== undefined && this.props.brutto != null
-            && this.props.kosztyMiejscowe !== undefined && this.props.kosztyMiejscowe != null) {
-            this.calc(this.props.brutto, this.props.kosztyMiejscowe);
+            && this.props.kosztyMiejscowe !== undefined && this.props.kosztyMiejscowe != null
+            && this.props.stawkaWypadkowe !== undefined && this.props.stawkaWypadkowe != null ) {
+            this.calc(this.props.brutto, this.props.kosztyMiejscowe, this.props.stawkaWypadkowe);
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.brutto !== undefined && nextProps.kosztyMiejscowe !== undefined) {
-            this.calc(nextProps.brutto, nextProps.kosztyMiejscowe);
+        if (nextProps.brutto !== undefined && nextProps.kosztyMiejscowe !== undefined && nextProps.stawkaWypadkowe !== undefined) {
+            this.calc(nextProps.brutto, nextProps.kosztyMiejscowe, nextProps.stawkaWypadkowe);
         }
     }
 
