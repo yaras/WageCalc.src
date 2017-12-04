@@ -83,19 +83,17 @@ export default class Summary extends Component {
         var pracodawcaZusRazem = pracodawcaEmerytalna + pracodawcaRentowa + pracodawcaWypadkowa 
             + pracodawcaFP + pracodawcaFGSP;
 
-        var podstawaOpodatkowania = this.round(dochod - pracownikZusRazem);
+        var podstawaOpodatkowania = dochod - pracownikZusRazem;
 
         var podstawaSkladek = brutto - pracownikZusRazem;
-
         var sklZdrowotnaPobierana = podstawaSkladek * this.const.zdrowotna_pobierana;
         var sklZdrowotnaOdliczana = podstawaSkladek * this.const.zdrowotna_odliczana;
 
-        var zaliczkaPrzed = this.round(podstawaOpodatkowania * this.const.podatek) - this.const.kwota_zmniejszajaca;
+        var zaliczkaPrzed = podstawaOpodatkowania * this.const.podatek - this.const.kwota_zmniejszajaca;
 
         var podatek = Math.round(zaliczkaPrzed - sklZdrowotnaOdliczana);
 
-        var netto = this.round(brutto - pracownikZusRazem 
-            - sklZdrowotnaPobierana - podatek);
+        var netto = brutto - pracownikZusRazem - sklZdrowotnaPobierana - podatek;
 
         var pracodawca = brutto + pracodawcaZusRazem;
 
