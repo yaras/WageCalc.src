@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
-import constValues from './constValues';
+import {constValues, formatValue} from './constValues';
 
 export default class Illness extends Component {
     constructor() {
         super();
         this.state = {
             'pensje': [ null, null, null, null, null, null, null, null, null, null, null, null],
-            'isCalculated': false
+            'isCalculated': false,
+            'wynagrodzenie': 0.8
         }
     }
 
@@ -16,6 +17,14 @@ export default class Illness extends Component {
         pensje[n - 1] = Number(val);
 
         this.setState({ 'pensje': pensje });
+    }
+
+    setDniChoroby(dni) {
+        this.setState({'dni': Number(dni)});
+    }
+
+    setWynagrodzenie(w) {
+        this.setState({'wynagrodzenie': w});
     }
 
     calc() {
@@ -35,15 +44,18 @@ export default class Illness extends Component {
         if (n > 0) {
             var average = sum / n;
 
-            var podstawa = average * (constValues['emerytalna_pracownik']
+            var podstawa = average - average * (constValues['emerytalna_pracownik']
                                         + constValues['rentowa_pracownik']
                                         + constValues['chorobowa_pracownik']);
 
-            
+            var dziennie = podstawa * this.state.wynagrodzenie / 30.0;
+            var razem = dziennie * this.state.dni;
 
             this.setState({
-                average: average,
-                podstawa: podstawa,
+                average: formatValue(average),
+                podstawa: formatValue(podstawa),
+                dziennie: formatValue(dziennie),
+                razem: formatValue(razem),
                 isCalculated: true
             });
         } else {
@@ -70,6 +82,26 @@ export default class Illness extends Component {
                         })
                     }
 
+                    <div className="input-group mb-2 mr-sm-2 mb-sm-0">                
+                        <div className="input-group-addon">Dni choroby</div>
+                        <input
+                            type="number"
+                            className="form-control"
+                            onChange={e => this.setDniChoroby(e.target.value)} />
+                        <div className="input-group-addon">dni</div>
+                    </div>
+
+                    <div className="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div className="input-group-addon">Wynagrodzenie</div>
+
+                        <select className="form-control" onChange={e => this.setWynagrodzenie(e)}>
+                            <option value="0.8">80</option>
+                            <option value="1.0">100</option>
+                        </select>
+
+                        <div className="input-group-addon">%</div>
+                    </div>
+
                     <div className="row align-items-center" style={{ marginTop: '10px' }}>
                         <Button onClick={e => this.calc()} className="btn btn-success btn-lg" >Wylicz</Button>
                     </div>
@@ -83,10 +115,46 @@ export default class Illness extends Component {
                         <div className="input-group-addon">Średnia pensja</div>
 
                         <input 
-                            type="number"
+                            type="text"
                             className="form-control"
                             disabled={true}
                             value={this.state.average}/>
+
+                        <div className="input-group-addon">zł</div>
+                    </div>
+
+                    <div className="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div className="input-group-addon">Podstawa</div>
+
+                        <input 
+                            type="text"
+                            className="form-control"
+                            disabled={true}
+                            value={this.state.podstawa}/>
+
+                        <div className="input-group-addon">zł</div>
+                    </div>
+
+                    <div className="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div className="input-group-addon">Dziennie</div>
+
+                        <input 
+                            type="text"
+                            className="form-control"
+                            disabled={true}
+                            value={this.state.dziennie}/>
+
+                        <div className="input-group-addon">zł</div>
+                    </div>
+
+                    <div className="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div className="input-group-addon">Razem</div>
+
+                        <input 
+                            type="text"
+                            className="form-control"
+                            disabled={true}
+                            value={this.state.razem}/>
 
                         <div className="input-group-addon">zł</div>
                     </div>

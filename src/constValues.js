@@ -1,4 +1,4 @@
-const constValues = {
+export const constValues = {
     "koszty_miejscowe": 111.25,
 
     "emerytalna_pracownik": 0.0976,
@@ -20,3 +20,9 @@ const constValues = {
     "chorobowe": 0.8
 };
 
+export function formatValue(v) {
+    return v.toLocaleString('pl-pl', {
+        style: 'currency', 
+        currency:"PLN"
+    });
+}
