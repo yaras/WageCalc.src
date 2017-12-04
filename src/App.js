@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import { Link, Switch, Route, Redirect   } from 'react-router-dom'
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem } from 'reactstrap';
 
 import Calculator from './calculator.js'
 import Illness from './illness';
@@ -12,7 +12,7 @@ class App extends Component {
   constructor() {
     super();
 
-    this.state = {'page': 'wage'}
+    this.state = { 'page': 'wage' }
   }
 
   setActive(v) {
@@ -20,8 +20,8 @@ class App extends Component {
   }
 
   render() {
-    var pensjaClass = "nav-link " + (this.state.page == 'wage' ? 'active' : '');
-    var choroboweClass = "nav-link " + (this.state.page == 'illness' ? 'active' : '');
+    var pensjaClass = "nav-link " + (this.state.page === 'wage' ? 'active' : '');
+    var choroboweClass = "nav-link " + (this.state.page === 'illness' ? 'active' : '');
 
     return (
       <div style={ { 'margin': '5px' } }>

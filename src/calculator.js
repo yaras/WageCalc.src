@@ -55,7 +55,6 @@ export default class Calculator extends Component {
 
             <div className="container" style={{ 'textAlign': 'center' }}>
                 <form onSubmit={e => { e.preventDefault(); this.calc() } }>
-                
                     <div className="input-group mb-2 mr-sm-2 mb-sm-0">                
                         <div className="input-group-addon">Pensja brutto</div>
                         <input
