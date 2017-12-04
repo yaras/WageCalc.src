@@ -39,6 +39,8 @@ export default class Illness extends Component {
                 sum += v;
                 n++;
             }
+
+            return null;
         });
 
         if (n > 0) {
