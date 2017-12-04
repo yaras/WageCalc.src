@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom'
 
-ReactDOM.render(<BrowserRouter>
+ReactDOM.render(<BrowserRouter basename="/WageCalc">
         <App />
     </BrowserRouter>, 
     document.getElementById('root'));
