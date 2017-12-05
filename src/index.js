@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom'
 
-ReactDOM.render(<BrowserRouter basename="/WageCalc">
+ReactDOM.render(<MemoryRouter basename="/WageCalc">
         <App />
-    </BrowserRouter>, 
+    </MemoryRouter>, 
     document.getElementById('root'));
